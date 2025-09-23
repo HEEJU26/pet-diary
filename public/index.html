@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pet Diary</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <h1>🐾 Pet Diary</h1>
+    <button id="theme-toggle">🌙 다크모드</button>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>새 일기 작성</h2>
+      <form id="entry-form">
+        <div class="row">
+          <label>날짜</label>
+          <input type="date" name="date" id="date" required />
+        </div>
+        <div class="row">
+          <label>반려동물 이름</label>
+          <input type="text" name="petName" id="petName" placeholder="예: 댕댕이" required />
+        </div>
+        <div class="row">
+          <label>제목</label>
+          <input type="text" name="title" id="title" placeholder="제목을 입력하세요" required />
+        </div>
+        <div class="row">
+          <label>기분</label>
+          <select name="mood" id="mood">
+            <option value="happy">😊 행복</option>
+            <option value="normal" selected>🙂 보통</option>
+            <option value="sad">😢 슬픔</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>내용</label>
+          <textarea name="content" id="content" rows="5" placeholder="오늘 있었던 일을 적어보세요" required></textarea>
+        </div>
+        <button type="submit">저장하기</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>일기 목록</h2>
+      <div id="entries" class="entries"></div>
+    </section>
+  </main>
+
+  <footer>
+    <small>© 2025 Pet Diary</small>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -14,6 +14,7 @@ function formatDate(isoOrYMD) {
   }
 }
 
+//일기 불러오기 
 async function loadEntries() {
   const box = $('#entries');
   box.innerHTML = '불러오는 중...';
@@ -68,6 +69,7 @@ async function loadEntries() {
   }
 }
 
+//일기 저장 
 async function submitEntry(e) {
   e.preventDefault();
   const payload = {
@@ -102,6 +104,7 @@ async function submitEntry(e) {
   }
 }
 
+//페이지 로드 시 초기화 
 document.addEventListener('DOMContentLoaded', () => {
   // 기본 날짜를 오늘로
   const today = new Date();

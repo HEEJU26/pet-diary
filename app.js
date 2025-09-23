@@ -1,6 +1,9 @@
 // app.js
 const express = require('express');
 const path = require('path');
+//모듈 가져오는 부분 
+/* express: 서버 프레임워크 
+   path: 파일/폴더 경로 합치기 */
 const fs = require('fs').promises;
 const fsSync = require('fs');
 const { randomUUID } = require('crypto');

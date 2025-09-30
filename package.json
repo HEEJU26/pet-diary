@@ -1,8 +1,7 @@
 {
   "name": "pet-diary",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
@@ -17,5 +16,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HEEJU26/pet-diary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HEEJU26/pet-diary/issues"
+  },
+  "homepage": "https://github.com/HEEJU26/pet-diary#readme"
 }

@@ -1,59 +1,37 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pet Diary</title>
-  <link rel="stylesheet" href="./style.css" />
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 16px; }
+    h1 { font-weight: 800; letter-spacing: 0.3px; }
+    form { display: grid; gap: 8px; margin: 16px 0 24px; }
+    input, textarea, button { font: inherit; padding: 8px; }
+    textarea { min-height: 120px; }
+    article { border: 1px solid #ddd; border-radius: 12px; padding: 12px 14px; margin: 12px 0; }
+    article h3 { margin: 0 0 4px; }
+    .row { display: flex; gap: 8px; align-items: center; }
+    .meta { color: #666; font-size: 0.9rem; }
+    .delete-btn { margin-left: auto; }
+    small { color: #666; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>🐾 Pet Diary</h1>
-    <button id="theme-toggle">🌙 다크모드</button>
-  </header>
+  <h1>🐾 Pet Diary</h1>
 
-  <main>
-    <section class="card">
-      <h2>새 일기 작성</h2>
-      <form id="entry-form">
-        <div class="row">
-          <label>날짜</label>
-          <input type="date" name="date" id="date" required />
-        </div>
-        <div class="row">
-          <label>반려동물 이름</label>
-          <input type="text" name="petName" id="petName" placeholder="예: 댕댕이" required />
-        </div>
-        <div class="row">
-          <label>제목</label>
-          <input type="text" name="title" id="title" placeholder="제목을 입력하세요" required />
-        </div>
-        <div class="row">
-          <label>기분</label>
-          <select name="mood" id="mood">
-            <option value="happy">😊 행복</option>
-            <option value="normal" selected>🙂 보통</option>
-            <option value="sad">😢 슬픔</option>
-          </select>
-        </div>
-        <div class="row">
-          <label>내용</label>
-          <textarea name="content" id="content" rows="5" placeholder="오늘 있었던 일을 적어보세요" required></textarea>
-        </div>
-        <button type="submit">저장하기</button>
-      </form>
-    </section>
+  <form id="entry-form">
+    <div class="row">
+      <input name="title" placeholder="제목" required style="flex:1"/>
+      <input type="date" name="date" />
+      <button type="submit">저장</button>
+    </div>
+    <textarea name="content" placeholder="오늘의 기록..." required></textarea>
+  </form>
 
-    <section class="card">
-      <h2>일기 목록</h2>
-      <div id="entries" class="entries"></div>
-    </section>
-  </main>
+  <section id="entries" aria-live="polite"></section>
 
-  <footer>
-    <small>© 2025 Pet Diary</small>
-  </footer>
-
-  <script src="./app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ const morgan   = require('morgan');
 const cors     = require('cors');
 
 const entriesRouter = require('./routes/entries');
+const usersRouter   = require('./routes/users'); // ← 반드시 존재해야 함
 
 const app  = express();
 const PORT = process.env.PORT ?? 3000;
@@ -14,10 +15,11 @@ const PORT = process.env.PORT ?? 3000;
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('public')); // /login.html, /chat.html 서빙
 
 // API 라우트
 app.use('/api/entries', entriesRouter);
+app.use('/api/users', usersRouter);
 
 // 404 핸들러
 app.use((req, res) => res.status(404).send('Not Found'));

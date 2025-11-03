@@ -1,16 +1,60 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>채팅방</title>
+  <!-- 소켓 클라이언트 스크립트를 "항상" 3000에서 가져온다 -->
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
   <style>
-    #messages { height: 300px; border: 1px solid #ccc; overflow-y: auto; margin-bottom: 8px; padding: 8px; }
+    body { font-family: system-ui, sans-serif; max-width: 680px; margin: 32px auto; }
+    h2 { margin-bottom: 12px; }
+    #messages { list-style: disc; padding-left: 20px; min-height: 120px; }
+    .row { display: flex; gap: 8px; }
+    input[type="text"] { flex: 1; padding: 6px 8px; }
+    button { padding: 6px 12px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <h2>실시간 채팅 (틀만)</h2>
-  <div id="messages"></div>
-  <input id="msg" placeholder="메시지 입력" />
-  <button>전송</button>
+  <h2>실시간 채팅방</h2>
+
+  <ul id="messages"></ul>
+
+  <div class="row" style="margin-top:8px;">
+    <input id="m" type="text" autocomplete="off" placeholder="메시지를 입력하세요" />
+    <button id="send">보내기</button>
+  </div>
+
+  <script>
+    // ⚠️ 소켓 서버는 3000에 고정 연결 (페이지는 3000이든 3001이든 상관없음)
+    const socket = io('http://localhost:3000', {
+      withCredentials: true,
+      transports: ['websocket', 'polling'],
+    });
+
+    const $messages = document.getElementById('messages');
+    const $input = document.getElementById('m');
+    const $btn = document.getElementById('send');
+
+    // 메시지 전송
+    $btn.onclick = () => {
+      const text = $input.value.trim();
+      if (!text) return;
+      socket.emit('chat message', text);
+      $input.value = '';
+      $input.focus();
+    };
+
+    // Enter 키 전송
+    $input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') $btn.click();
+    });
+
+    // 메시지 수신
+    socket.on('chat message', (msg) => {
+      const li = document.createElement('li');
+      li.textContent = msg;
+      $messages.appendChild(li);
+    });
+  </script>
 </body>
 </html>

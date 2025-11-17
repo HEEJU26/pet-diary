@@ -9,18 +9,29 @@ router.get('/ping', (req, res) => {
 });
 
 // 회원가입
-router.post('/register', async (req, res, next) => {
+// 로그인
+router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    if (!username || !password) return res.status(400).json({ message: '필수 입력 누락' });
-    const user = new User({ username, password });
-    await user.save();
-    res.json({ message: '회원가입 성공!' });
+
+    console.log('🔐 로그인 요청 body:', req.body);   // ⭐️ 추가
+    console.log('username:', username, 'password:', password); // ⭐️ 추가
+
+    if (!username || !password) {
+      return res.status(400).json({ message: '아이디/비밀번호를 입력하세요.' });
+    }
+
+    const user = await User.findOne({ username, password });
+    console.log('찾은 user:', user); // ⭐️ 추가
+
+    if (!user) return res.status(401).json({ message: '로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.' });
+
+    res.json({ message: '로그인 성공' });
   } catch (err) {
-    if (err.code === 11000) return res.status(409).json({ message: '이미 존재하는 아이디' });
     next(err);
   }
 });
+
 
 // 로그인
 router.post('/login', async (req, res, next) => {

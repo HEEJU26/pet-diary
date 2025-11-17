@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pet Diary - 메인 메뉴</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 24px 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn.secondary {
+      background-color: #2196F3;
+    }
+
+    .btn.accent {
+      background-color: #FF9800;
+    }
+
+    .logout {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #888;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🐶 Pet Diary</h1>
+    <p>원하는 기능을 선택하세요.</p>
+
+    <div class="btn-group">
+      <a href="/diary.html" class="btn">✏️ 일기 쓰기</a>
+      <a href="/chat.html" class="btn secondary">💬 실시간 채팅</a>
+      <a href="/photo.html" class="btn accent">📷 사진 업로드</a>
+    </div>
+
+    <div class="logout" onclick="goLogout()">
+      로그아웃
+    </div>
+  </div>
+
+  <script>
+    function goLogout() {
+      // 실제 로그아웃 API 만들면 fetch로 호출하면 되고,
+      // 지금은 단순히 로그인 페이지로 이동만 해도 됨.
+      window.location.href = '/index.html';
+    }
+  </script>
+</body>
+</html>

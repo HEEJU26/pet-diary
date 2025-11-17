@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사진 업로드 - Pet Diary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 24px 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 340px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      background-color: #FF9800;
+      color: white;
+    }
+
+    .back {
+      margin-top: 12px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .back a {
+      color: #2196F3;
+      text-decoration: none;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📷 사진 업로드</h1>
+    <p>반려동물 사진을 업로드하여 일기와 함께 관리할 수 있습니다.</p>
+
+    <form id="photoForm">
+      <div class="field">
+        <label for="photo">사진 파일 선택</label>
+        <input type="file" id="photo" name="photo" accept="image/*" />
+      </div>
+
+      <button type="submit">업로드 (9주차에 구현)</button>
+    </form>
+
+    <div class="info" id="info"></div>
+
+    <div class="back">
+      <a href="/dashboard.html">← 메인 메뉴로 돌아가기</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('photoForm');
+    const info = document.getElementById('info');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('photo');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        info.textContent = '파일을 선택해주세요.';
+        return;
+      }
+
+      // ✅ 8주차: 아직 서버로 실제 업로드는 하지 않고,
+      // “9주차에 구현 예정”이라는 안내만 띄움
+      info.textContent = `선택한 파일: ${file.name} (실제 업로드는 9주차에 구현 예정입니다.)`;
+      alert('사진 업로드 기능은 9주차에 구현할 예정입니다.');
+    });
+  </script>
+</body>
+</html>

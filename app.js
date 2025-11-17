@@ -14,7 +14,7 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
-// Socket.IO (CORS: 3000/3001 허용)
+// Socket.IO (CORS 허용)
 const io = new Server(server, {
   cors: {
     origin: ['http://localhost:3000', 'http://localhost:3001'],
@@ -33,13 +33,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// 정적 파일 (이 서버가 3000에서 chat.html도 서비스함)
+// 정적 파일
 app.use(express.static(path.join(__dirname, 'public')));
+
+// 업로드된 이미지 정적 공개
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ==============================
 // [3] MongoDB 연결
 // ==============================
 const MONGODB_URI = process.env.MONGODB_URI;
+
 (async () => {
   try {
     await mongoose.connect(MONGODB_URI, {
@@ -52,16 +56,23 @@ const MONGODB_URI = process.env.MONGODB_URI;
 })();
 
 // ==============================
-// [4] 사용자 라우터 (로그인/회원가입 등)
+// [4] 라우터 연결
 // ==============================
+
+// 🔹 사용자 로그인/회원가입
 const userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);
+
+// 🔹 사진 업로드 / 목록
+const photoRoutes = require('./routes/photos');
+app.use('/api/photos', photoRoutes);
 
 // ==============================
 // [5] 기본 라우팅
 // ==============================
+// 기본 진입 → 로그인 페이지
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'chat.html'));
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // ==============================
@@ -71,7 +82,6 @@ io.on('connection', (socket) => {
   console.log('👋 새로운 유저 접속');
 
   socket.on('chat message', (msg) => {
-    // 받은 메시지를 모든 클라이언트에 브로드캐스트
     io.emit('chat message', msg);
   });
 
@@ -84,11 +94,12 @@ io.on('connection', (socket) => {
 // [7] 서버 시작
 // ==============================
 const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
   console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
 });
 
-// (옵션) 포트 충돌 시 친절 로그
+// 포트 충돌 안내
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
     console.error(`❌ 포트 ${PORT} 이미 사용 중입니다.`);
